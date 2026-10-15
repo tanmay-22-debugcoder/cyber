@@ -1,0 +1,12 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes: [mongo_data:/data/db]
+    # not published to the host: only the backend can reach it
+  backend:
+    build: ./backend
+    env_file: .env
+    depends_on: [mongo]
+    ports: ["8000:8000"]
+volumes:
+  mongo_data:
